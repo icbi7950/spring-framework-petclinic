@@ -48,7 +48,7 @@ public class VisitControllerTests {
     public void testInitNewVisitForm() throws Exception {
         mockMvc.perform(get("/owners/*/pets/{petId}/visits/new", TEST_PET_ID))
             .andExpect(status().isOk())
-            .andExpect(view().name("pets/createOrUpdateVisitForm"));
+            .andExpect(view().name("pets/createOrUpdateVisitFormm"));
     }
 
     @Test
