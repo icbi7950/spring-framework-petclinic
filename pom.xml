@@ -474,8 +474,5 @@
             </dependencies>
         </profile>
    </profiles>
-<configuration>
-  <linkXRef>false</linkXRef>
-</configuration>
     <url>demopetclinic</url>
 </project>
