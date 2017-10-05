@@ -44,11 +44,11 @@ public class VisitControllerTests {
         given(this.clinicService.findPetById(TEST_PET_ID)).willReturn(new Pet());
     }
 
-    //@Test
+    @Test
     public void testInitNewVisitForm() throws Exception {
         mockMvc.perform(get("/owners/*/pets/{petId}/visits/new", TEST_PET_ID))
             .andExpect(status().isOk())
-            .andExpect(view().name("pets/createOrUpdateVisitFormm"));
+            .andExpect(view().name("pets/createOrUpdateVisitForm"));
     }
 
     //@Test
