@@ -1,0 +1,32 @@
+node {
+   echo 'Hello World'
+   stage('git') {
+        echo 'Hello git'
+        git 'https://github.com/icbi7950/spring-framework-petclinic.git'
+   }
+   stage('Build') {
+        echo 'Hello Build'
+        withMaven(jdk: 'jdk1.8', maven: 'mavenlocal') {
+           bat "mvn clean package"
+        }
+   }
+   stage('Archive') {
+        archiveArtifacts 'target/*.war'
+   }
+    stage('quality') {
+         withMaven(jdk: 'jdk1.8', maven: 'mavenlocal') {
+            bat "mvn checkstyle:checkstyle pmd:pmd compile sonar:sonar"
+         }
+    }
+   /*     stage('deploy-nexus') {
+         withMaven(jdk: 'jdk1.8', maven: 'mavenlocal',) {
+            bat "mvn jar:jar deploy:deploy -DaltDeploymentRepository=nexus::default::http://localhost:8081/repository/maven-releases/ "
+         }
+    }*/
+            stage('deploy-tomcat') {
+         withMaven(jdk: 'jdk1.8', maven: 'mavenlocal',) {
+            bat "mvn tomcat7:redeploy -Dmaven.tomcat.url=http://localhost:10080/manager/text -Dtomcat.username=tomcat -Dtomcat.password=tomcat "
+         }
+    }
+   
+}
